@@ -1,0 +1,27 @@
+{
+    "manifest_version": 3,
+    "name": "Leetcode",
+    "version": "1.0",
+    "description": "Blocks additional information about a Leetcode problem other than the description given",
+    "permissions": ["storage", "tabs", "activeTab", "webNavigation", "scripting"],
+    "action": {
+        "default_popup": "popup.html",
+        "default_state": "disabled"
+    },
+    "background": {
+        "service_worker": "scripts/background.js",
+        "persistent": false
+    },
+    "host_permissions": ["https://*/*"],
+    "content_scripts": [
+        {
+        "js": [ "js/jquery-3.5.1.min.js", "js/jquery-ui.min.js", "scripts/content.js"],
+        "run_at": "document_start",
+        "all_frames": true,
+        "matches": [
+            "https://leetcode.com/problems/*",
+            "https://leetcode.com/problemset/"
+        ]
+        }
+    ]
+}
