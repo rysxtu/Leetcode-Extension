@@ -221,10 +221,15 @@ function checkElementMatchTabs(element){
 document.addEventListener('click', evt => {
   const a = evt.target.closest('a[href]');
   console.log(a.href);
-  if (a) {
-    evt.preventDefault();
-    chrome.runtime.sendMessage({action: "newtab", url: a.href});
-  }
+  chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
+    var url = tabs[0].url;
+    if (url != "https://leetcode.com/problemset/"){
+      if (a) {
+        evt.preventDefault();
+        chrome.runtime.sendMessage({action: "newtab", url: a.href});
+      }
+    }
+  }); 
 });
 
 document.addEventListener("DOMContentLoaded", function(){
